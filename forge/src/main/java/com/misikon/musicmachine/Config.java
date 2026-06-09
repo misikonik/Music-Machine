@@ -140,23 +140,23 @@ public class Config {
     private static final Map<String, String[]> TRACK_INFO = new HashMap<>();
     static {
         // Menu
-        TRACK_INFO.put("music/menu/beginning_2",     new String[]{"Beginning 2",        "C418"});
-        TRACK_INFO.put("music/menu/floating_trees",  new String[]{"Floating Trees",     "C418"});
-        TRACK_INFO.put("music/menu/moog_city_2",     new String[]{"Moog City 2",        "C418"});
-        TRACK_INFO.put("music/menu/mutation",        new String[]{"Mutation",           "C418"});
+        TRACK_INFO.put("music/menu/menu3",           new String[]{"Beginning 2",        "C418"});
+        TRACK_INFO.put("music/menu/menu4",           new String[]{"Floating Trees",     "C418"});
+        TRACK_INFO.put("music/menu/menu2",           new String[]{"Moog City 2",        "C418"});
+        TRACK_INFO.put("music/menu/menu1",           new String[]{"Mutation",           "C418"});
 
         // Creative
-        TRACK_INFO.put("music/game/creative/aria_math",         new String[]{"Aria Math",          "C418"});
-        TRACK_INFO.put("music/game/creative/biome_fest",        new String[]{"Biome Fest",         "C418"});
-        TRACK_INFO.put("music/game/creative/blind_spots",       new String[]{"Blind Spots",        "C418"});
-        TRACK_INFO.put("music/game/creative/dreiton",           new String[]{"Dreiton",            "C418"});
-        TRACK_INFO.put("music/game/creative/haunt_muskie",      new String[]{"Haunt Muskie",       "C418"});
-        TRACK_INFO.put("music/game/creative/taswell",           new String[]{"Taswell",            "C418"});
+        TRACK_INFO.put("music/game/creative/creative1",         new String[]{"Aria Math",          "C418"});
+        TRACK_INFO.put("music/game/creative/creative2",        new String[]{"Biome Fest",         "C418"});
+        TRACK_INFO.put("music/game/creative/creative3",       new String[]{"Blind Spots",        "C418"});
+        TRACK_INFO.put("music/game/creative/creative4",           new String[]{"Dreiton",            "C418"});
+        TRACK_INFO.put("music/game/creative/creative5",      new String[]{"Haunt Muskie",       "C418"});
+        TRACK_INFO.put("music/game/creative/creative6",           new String[]{"Taswell",            "C418"});
 
         // The End
-        TRACK_INFO.put("music/game/end/alpha",       new String[]{"Alpha",              "C418"});
+        TRACK_INFO.put("music/game/end/credits",     new String[]{"Alpha",              "C418"});
         TRACK_INFO.put("music/game/end/boss",        new String[]{"Boss",               "C418"});
-        TRACK_INFO.put("music/game/end/the_end",     new String[]{"The End",            "C418"});
+        TRACK_INFO.put("music/game/end/end",         new String[]{"The End",            "C418"});
 
         // Overworld general
         TRACK_INFO.put("music/game/a_familiar_room", new String[]{"A Familiar Room",   "Aaron Cherof"});
@@ -165,39 +165,27 @@ public class Config {
         TRACK_INFO.put("music/game/below_and_above", new String[]{"Below and Above",   "Lena Raine"});
         TRACK_INFO.put("music/game/broken_clocks",   new String[]{"Broken Clocks",     "Lena Raine"});
         TRACK_INFO.put("music/game/bromeliad",       new String[]{"Bromeliad",         "Aaron Cherof"});
-        TRACK_INFO.put("music/game/clark",           new String[]{"Clark",             "C418"});
+        TRACK_INFO.put("music/game/calm2",           new String[]{"Clark",             "C418"});
         TRACK_INFO.put("music/game/comforting_memories", new String[]{"Comforting Memories", "Kumi Tanioka"});
         TRACK_INFO.put("music/game/crescent_dunes",  new String[]{"Crescent Dunes",    "Aaron Cherof"});
-        TRACK_INFO.put("music/game/danny",           new String[]{"Danny",             "C418"});
-        TRACK_INFO.put("music/game/deeper",          new String[]{"Deeper",            "Lena Raine"});
-        TRACK_INFO.put("music/game/dry_hands",       new String[]{"Dry Hands",         "C418"});
+        TRACK_INFO.put("music/game/hal4",            new String[]{"Danny",             "C418"});
+        TRACK_INFO.put("music/game/piano1",          new String[]{"Dry Hands",         "C418"});
         TRACK_INFO.put("music/game/echo_in_the_wind",new String[]{"Echo in the Wind",  "Aaron Cherof"});
-        TRACK_INFO.put("music/game/eld_unknown",     new String[]{"Eld Unknown",       "Kumi Tanioka"});
-        TRACK_INFO.put("music/game/endless",         new String[]{"Endless",           "Kumi Tanioka"});
-        TRACK_INFO.put("music/game/featherfall",     new String[]{"Featherfall",       "Lena Raine"});
         TRACK_INFO.put("music/game/fireflies",       new String[]{"Fireflies",         "Lena Raine"});
         TRACK_INFO.put("music/game/floating_dream",  new String[]{"Floating Dream",    "Kumi Tanioka"});
-        TRACK_INFO.put("music/game/haggstrom",       new String[]{"Haggstrom",         "C418"});
+        TRACK_INFO.put("music/game/hal3",            new String[]{"Haggstrom",         "C418"});
         TRACK_INFO.put("music/game/infinite_amethyst",new String[]{"Infinite Amethyst","Lena Raine"});
-        TRACK_INFO.put("music/game/key",             new String[]{"Key",               "C418"});
-        TRACK_INFO.put("music/game/komorebi",        new String[]{"Komorebi",          "Lena Raine"});
+        TRACK_INFO.put("music/game/nuance1",         new String[]{"Key",               "C418"});
         TRACK_INFO.put("music/game/left_to_bloom",   new String[]{"Left to Bloom",     "Lena Raine"});
-        TRACK_INFO.put("music/game/lilypad",         new String[]{"Lilypad",           "Lena Raine"});
-        TRACK_INFO.put("music/game/living_mice",     new String[]{"Living Mice",       "C418"});
-        TRACK_INFO.put("music/game/mice_on_venus",   new String[]{"Mice on Venus",     "C418"});
-        TRACK_INFO.put("music/game/minecraft",       new String[]{"Minecraft",         "C418"});
+        TRACK_INFO.put("music/game/hal2",            new String[]{"Living Mice",       "C418"});
+        TRACK_INFO.put("music/game/piano3",          new String[]{"Mice on Venus",     "C418"});
+        TRACK_INFO.put("music/game/calm1",           new String[]{"Minecraft",         "C418"});
         TRACK_INFO.put("music/game/one_more_day",    new String[]{"One More Day",      "Lena Raine"});
-        TRACK_INFO.put("music/game/os_piano",        new String[]{"Os Piano",          "Lena Raine"});
-        TRACK_INFO.put("music/game/oxygene",         new String[]{"Oxygène",           "C418"});
-        TRACK_INFO.put("music/game/pokopoko",        new String[]{"Pokopoko",          "Kumi Tanioka"});
-        TRACK_INFO.put("music/game/puzzlebox",       new String[]{"Puzzlebox",         "Lena Raine"});
-        TRACK_INFO.put("music/game/stand_tall",      new String[]{"Stand Tall",        "Lena Raine"});
-        TRACK_INFO.put("music/game/subwoofer_lullaby",new String[]{"Subwoofer Lullaby","C418"});
-        TRACK_INFO.put("music/game/sweden",          new String[]{"Sweden",            "C418"});
-        TRACK_INFO.put("music/game/watcher",         new String[]{"Watcher",           "Lena Raine"});
+        TRACK_INFO.put("music/game/nuance2",         new String[]{"Oxygène",           "C418"});
+        TRACK_INFO.put("music/game/hal1",            new String[]{"Subwoofer Lullaby","C418"});
+        TRACK_INFO.put("music/game/calm3",           new String[]{"Sweden",            "C418"});
         TRACK_INFO.put("music/game/wending",         new String[]{"Wending",           "Kumi Tanioka"});
-        TRACK_INFO.put("music/game/wet_hands",       new String[]{"Wet Hands",         "C418"});
-        TRACK_INFO.put("music/game/yakusoku",        new String[]{"Yakusoku",          "Lena Raine"});
+        TRACK_INFO.put("music/game/piano2",          new String[]{"Wet Hands",         "C418"});
 
         // Swamp
         TRACK_INFO.put("music/game/swamp/aerie",         new String[]{"Aerie",         "Lena Raine"});
@@ -210,10 +198,10 @@ public class Config {
         TRACK_INFO.put("music/game/water/shuniji",       new String[]{"Shuniji",       "C418"});
 
         // Nether
-        TRACK_INFO.put("music/game/nether/ballad_of_the_cats",      new String[]{"Ballad of the Cats", "C418"});
-        TRACK_INFO.put("music/game/nether/concrete_halls",           new String[]{"Concrete Halls",    "C418"});
-        TRACK_INFO.put("music/game/nether/dead_voxel",               new String[]{"Dead Voxel",        "C418"});
-        TRACK_INFO.put("music/game/nether/warmth",                   new String[]{"Warmth",            "C418"});
+        TRACK_INFO.put("music/game/nether/nether4",      new String[]{"Ballad of the Cats", "C418"});
+        TRACK_INFO.put("music/game/nether/nether1",           new String[]{"Concrete Halls",    "C418"});
+        TRACK_INFO.put("music/game/nether/nether2",               new String[]{"Dead Voxel",        "C418"});
+        TRACK_INFO.put("music/game/nether/nether3",                   new String[]{"Warmth",            "C418"});
         TRACK_INFO.put("music/game/nether/soulsand_valley/so_below", new String[]{"So Below",          "Lena Raine"});
         TRACK_INFO.put("music/game/nether/crimson_forest/chrysopoeia",new String[]{"Chrysopoeia",      "Lena Raine"});
         TRACK_INFO.put("music/game/nether/nether_wastes/rubedo",     new String[]{"Rubedo",            "Lena Raine"});

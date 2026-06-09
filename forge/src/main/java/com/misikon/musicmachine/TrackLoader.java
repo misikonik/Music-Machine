@@ -4,33 +4,21 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.io.InputStreamReader;
 import java.util.*;
 
-/**
- * Parses vanilla sounds.json to discover which individual .ogg track files
- * belong to each music.* sound event.
- *
- * Result: eventTracks maps e.g. "music.game" → ["music/game/sweden", "music/game/clark", ...]
- *
- * This runs client-side once during the first client tick when the
- * resource manager is available.
- */
 public class TrackLoader {
-    /** Map of sound event name → list of individual track file paths */
     public static final Map<String, List<String>> eventTracks = new LinkedHashMap<>();
 
     public static void load(ResourceManager resourceManager) {
         eventTracks.clear();
         MusicMachine.LOGGER.info("TrackLoader starting...");
         try {
-            // In 1.21.11, ResourceLocation may have been renamed to Identifier in some mappings.
-            // With parchment/mojmap on NeoForge, ResourceLocation should still work.
-            Identifier soundsLoc = Identifier.withDefaultNamespace("sounds.json");
+            ResourceLocation soundsLoc = new ResourceLocation("minecraft", "sounds.json");
             List<Resource> resources = resourceManager.getResourceStack(soundsLoc);
             MusicMachine.LOGGER.info("Found {} sounds.json files", resources.size());
 
@@ -58,12 +46,10 @@ public class TrackLoader {
                             } else {
                                 name = sound.getAsString();
                             }
-                            // Strip namespace prefix if present (e.g. "minecraft:music/game/sweden")
                             if (name.contains(":")) {
                                 name = name.split(":")[1];
                             }
                             tracks.add(name);
-                            // Register with Config (sets default enabled=true, weight=5)
                             Config.registerIndividualTrack(name);
                         }
                         if (!tracks.isEmpty()) {

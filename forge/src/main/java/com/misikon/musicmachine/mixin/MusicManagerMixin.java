@@ -9,7 +9,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.client.sounds.WeighedSoundEvents;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -112,16 +112,26 @@ public abstract class MusicManagerMixin {
     @Inject(method = "startPlaying", at = @At("HEAD"), cancellable = true)
     private void musicmachine_onStartPlaying(Music music, CallbackInfo ci) {
         // Get the sound event path (e.g. "music.game", "music.menu")
-        String eventPath = music.sound().value().location().getPath();
+        String eventPath = music.getEvent().value().getLocation().getPath();
         List<String> allTracks = TrackLoader.eventTracks.get(eventPath);
 
         // If we don't know this event's individual tracks, let vanilla handle it
         if (allTracks == null || allTracks.isEmpty()) return;
 
-        // Filter to only enabled tracks
-        List<String> enabledTracks = allTracks.stream()
-                .filter(Config::isTrackEnabled)
-                .collect(Collectors.toList());
+        // Filter tracks based on profile and config state
+        Config.MusicProfile profile = Config.getMusicProfile();
+        List<String> enabledTracks;
+        if (profile == Config.MusicProfile.DEFAULT) {
+            enabledTracks = new java.util.ArrayList<>(allTracks);
+        } else if (profile == Config.MusicProfile.LEGACY) {
+            enabledTracks = allTracks.stream()
+                    .filter(t -> Config.getAuthor(t).contains("C418"))
+                    .collect(Collectors.toList());
+        } else {
+            enabledTracks = allTracks.stream()
+                    .filter(Config::isTrackEnabled)
+                    .collect(Collectors.toList());
+        }
 
         if (Config.isMusicDisabled() || enabledTracks.isEmpty()) {
             // All tracks in this event are disabled or global music is disabled — suppress playback
@@ -157,15 +167,15 @@ public abstract class MusicManagerMixin {
 
         // Create a SimpleSoundInstance for the chosen track and play it
         // The track path is relative to assets/minecraft/sounds/ (e.g. "music/game/sweden")
-        Identifier trackLocation = Identifier.withDefaultNamespace(chosenTrack);
+        ResourceLocation trackLocation = new ResourceLocation("minecraft", chosenTrack);
         SoundManager soundManager = Minecraft.getInstance().getSoundManager();
 
         // Look up the WeighedSoundEvents for this specific sound file
         // We create a SimpleSoundInstance that plays the chosen track as music
         // We MUST override resolve() because individual tracks aren't registered as standalone events.
-        // We MUST use the original event identifier (e.g. minecraft:music.game) for the instance itself
+        // We MUST use the original event ResourceLocation (e.g. minecraft:music.game) for the instance itself
         // so that vanilla's canReplace logic doesn't think the music changed and stop it immediately!
-        Identifier eventId = music.sound().value().location();
+        ResourceLocation eventId = music.getEvent().value().getLocation();
         SimpleSoundInstance instance = new SimpleSoundInstance(
                 eventId,                // sound location MUST match the music event
                 SoundSource.MUSIC,      // category
@@ -182,11 +192,11 @@ public abstract class MusicManagerMixin {
             public net.minecraft.client.sounds.WeighedSoundEvents resolve(SoundManager manager) {
                 // Return a dummy WeighedSoundEvents so the engine accepts it
                 net.minecraft.client.sounds.WeighedSoundEvents dummyEvent = 
-                        new net.minecraft.client.sounds.WeighedSoundEvents(this.identifier, null);
+                        new net.minecraft.client.sounds.WeighedSoundEvents(this.getLocation(), null);
                 
                 // Directly construct the Sound object for the actual .ogg file path
                 this.sound = new net.minecraft.client.resources.sounds.Sound(
-                        trackLocation, // the actual file path, not the event ID!
+                        trackLocation.toString(), // the actual file path, not the event ID!
                         net.minecraft.util.valueproviders.ConstantFloat.of(1.0F),
                         net.minecraft.util.valueproviders.ConstantFloat.of(1.0F),
                         1,
@@ -211,8 +221,8 @@ public abstract class MusicManagerMixin {
 
         // Apply delay until next song
         Config.MusicFrequency freq = Config.getMusicFrequency();
-        int minDelay = freq == Config.MusicFrequency.SOMETIMES ? music.minDelay() : freq.minDelay;
-        int maxDelay = freq == Config.MusicFrequency.SOMETIMES ? music.maxDelay() : freq.maxDelay;
+        int minDelay = freq == Config.MusicFrequency.SOMETIMES ? music.getMinDelay() : freq.minDelay;
+        int maxDelay = freq == Config.MusicFrequency.SOMETIMES ? music.getMaxDelay() : freq.maxDelay;
         
         if (minDelay <= 0) minDelay = 1;
         if (maxDelay < minDelay) maxDelay = minDelay;

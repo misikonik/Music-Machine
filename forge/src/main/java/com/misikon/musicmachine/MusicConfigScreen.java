@@ -3,7 +3,7 @@ package com.misikon.musicmachine;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.MouseButtonEvent;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
@@ -221,7 +221,7 @@ public class MusicConfigScreen extends Screen {
     // ----------------------------------------------------------------
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollY) {
         int maxScroll = getMaxScroll();
         scrollOffset = (int) Mth.clamp(scrollOffset - scrollY * ROW_HEIGHT, 0, maxScroll);
         return true;
@@ -232,12 +232,7 @@ public class MusicConfigScreen extends Screen {
      * We intercept clicks on the track list area to handle toggle/slider interactions.
      */
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean consumed) {
-        if (consumed) return super.mouseClicked(event, consumed);
-
-        double mouseX = event.x();
-        double mouseY = event.y();
-        int button = event.button();
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
 
         // Only allow interaction if the profile is CUSTOM
         if (profileState == Config.MusicProfile.CUSTOM) {
@@ -288,7 +283,7 @@ public class MusicConfigScreen extends Screen {
             }
         }
 
-        return super.mouseClicked(event, consumed);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     /**
@@ -296,10 +291,7 @@ public class MusicConfigScreen extends Screen {
      * Allows dragging on weight sliders.
      */
     @Override
-    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
-        double mouseX = event.x();
-        double mouseY = event.y();
-        int button = event.button();
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
 
         // Only allow interaction if the profile is CUSTOM
         if (profileState == Config.MusicProfile.CUSTOM) {
@@ -332,7 +324,7 @@ public class MusicConfigScreen extends Screen {
             }
         }
 
-        return super.mouseDragged(event, dragX, dragY);
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
     }
 
     // ----------------------------------------------------------------
@@ -341,6 +333,9 @@ public class MusicConfigScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        // Draw the dark dirt or gradient background
+        this.renderBackground(graphics);
+
         // Title
         graphics.drawCenteredString(this.font, this.title, this.width / 2, 8, 0xFFFFFFFF);
 

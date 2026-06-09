@@ -3,35 +3,33 @@ package com.misikon.musicmachine;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.common.NeoForge;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
-@Mod(value = MusicMachine.MODID, dist = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = MusicMachine.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MusicMachineClient {
     public static final KeyMapping OPEN_CONFIG = new KeyMapping(
             "key.musicmachine.open_config",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_M,
-            KeyMapping.Category.MISC
+            "key.categories.misc"
     );
 
-    private boolean tracksLoaded = false;
+    private static boolean tracksLoaded = false;
 
-    public MusicMachineClient(IEventBus modEventBus) {
-        modEventBus.addListener(this::registerKeys);
-        NeoForge.EVENT_BUS.addListener(this::onClientTick);
-    }
-
-    private void registerKeys(RegisterKeyMappingsEvent event) {
+    @SubscribeEvent
+    public static void registerKeys(RegisterKeyMappingsEvent event) {
         event.register(OPEN_CONFIG);
+        MinecraftForge.EVENT_BUS.addListener(MusicMachineClient::onClientTick);
     }
 
-    private void onClientTick(ClientTickEvent.Post event) {
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
 
         if (!tracksLoaded && mc.getResourceManager() != null) {
