@@ -1,0 +1,15 @@
+{
+  "key.musicmachine.open_config": "Open Music Manager",
+  "musicmachine.screen.title": "Music Machine",
+  "musicmachine.category.menu": "Menu",
+  "musicmachine.category.creative": "Creative",
+  "musicmachine.category.overworld": "Overworld",
+  "musicmachine.category.swamp": "Swamp",
+  "musicmachine.category.underwater": "Underwater",
+  "musicmachine.category.nether": "Nether",
+  "musicmachine.category.the_end": "The End",
+  "musicmachine.button.save": "Save & Close",
+  "musicmachine.toggle.on": "ON",
+  "musicmachine.toggle.off": "OFF",
+  "musicmachine.weight.label": "Weight"
+}
